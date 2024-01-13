@@ -1,0 +1,8 @@
+package org.example.librarymanagement.repo;
+
+import org.example.librarymanagement.entity.Admin;
+import org.springframework.data.repository.CrudRepository;
+
+public interface AdminRepository extends CrudRepository<Admin, Integer> {
+
+}
