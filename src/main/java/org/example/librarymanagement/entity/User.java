@@ -1,9 +1,8 @@
 package org.example.librarymanagement.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
+import java.sql.Blob;
 
 @Entity
 public class User {
@@ -13,9 +12,14 @@ public class User {
     private Integer id_user;
 
     private String username;
-    private String password_hash;
+    private String passwordHash;
     private String role;
-    private String account_validated;
+    private Boolean accountValidated;
+    private String phoneNumber;
+
+    @Lob
+    @Column(name="id_card", columnDefinition = "MEDIUMBLOB")
+    private byte[] idCard;
 
     public Integer getId_user() {
         return id_user;
@@ -33,12 +37,12 @@ public class User {
         this.username = username;
     }
 
-    public String getPassword_hash() {
-        return password_hash;
+    public String getPasswordHash() {
+        return passwordHash;
     }
 
-    public void setPassword_hash(String password_hash) {
-        this.password_hash = password_hash;
+    public void setPasswordHash(String passwordHash) {
+        this.passwordHash = passwordHash;
     }
 
     public String getRole() {
@@ -49,11 +53,27 @@ public class User {
         this.role = role;
     }
 
-    public String getAccount_validated() {
-        return account_validated;
+    public Boolean getAccountValidated() {
+        return accountValidated;
     }
 
-    public void setAccount_validated(String account_validated) {
-        this.account_validated = account_validated;
+    public void setAccountValidated(Boolean accountValidated) {
+        this.accountValidated = accountValidated;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public byte[] getIdCard() {
+        return idCard;
+    }
+
+    public void setIdCard(byte[] idCard) {
+        this.idCard = idCard;
     }
 }
