@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Signup</title>
+    <!-- Add your CSS stylesheets or link to external stylesheets here -->
+</head>
+<body>
+<div class="container">
+    <h2>User Signup</h2>
+    <form th:action="@{/signupadd}" method="post" enctype="multipart/form-data">
+        <label for="photo">Photo (PDF or Image):</label>
+        <input type="file" id="photo" name="photo" accept=".pdf, .png, .jpg, .jpeg" required />
+
+        <label for="phoneNumber">Phone Number:</label>
+        <input type="tel" id="phoneNumber" name="phoneNumber" required />
+
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required />
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required />
+
+        <button type="submit">Sign Up</button>
+    </form>
+</div>
+<!-- Add your JavaScript scripts or link to external scripts here -->
+</body>
+</html>
