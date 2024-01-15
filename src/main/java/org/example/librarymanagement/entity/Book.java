@@ -16,16 +16,17 @@ public class Book {
     private String translator;
     private String collection;
     private String author;
-    private Integer pages_number;
+    private Integer pagesNumber;
     private Integer height;
     private Integer width;
     private String editor;
     private Integer total;
     private Integer available;
-    private Integer datePublished;
+    private String datePublished;
     private String isbn;
     private String edition;
     private String cover;
+    private String category;
 
     public Integer getId_book() {
         return id_book;
@@ -67,12 +68,12 @@ public class Book {
         this.author = author;
     }
 
-    public Integer getPages_number() {
-        return pages_number;
+    public Integer getPagesNumber() {
+        return pagesNumber;
     }
 
-    public void setPages_number(Integer pages_number) {
-        this.pages_number = pages_number;
+    public void setPagesNumber(Integer pagesNumber) {
+        this.pagesNumber = pagesNumber;
     }
 
     public Integer getHeight() {
@@ -115,11 +116,11 @@ public class Book {
         this.available = available;
     }
 
-    public Integer getDatePublished() {
+    public String getDatePublished() {
         return datePublished;
     }
 
-    public void setDatePublished(Integer datePublished) {
+    public void setDatePublished(String datePublished) {
         this.datePublished = datePublished;
     }
 
@@ -145,5 +146,13 @@ public class Book {
 
     public void setCover(String cover) {
         this.cover = cover;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 }

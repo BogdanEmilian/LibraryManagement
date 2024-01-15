@@ -1,0 +1,34 @@
+
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Library Management</title>
+</head>
+<body>
+
+<div>
+    <h2>Add New Book</h2>
+    <form th:action="@{/bookadd}" method="post">
+        <label>Title: <input type="text" name="title" required/></label><br/>
+        <label>Translator: <input type="text" name="translator" required/></label><br/>
+        <label>Collection: <input type="text" name="collection"/></label><br/>
+        <label>Author: <input type="text" name="author" required/></label><br/>
+        <label>Page Number: <input type="number" name="pagesNumber" required/></label><br/>
+        <label>Height: <input type="number" name="height" required/></label><br/>
+        <label>Width: <input type="number" name="width" required/></label><br/>
+        <label>Editor: <input type="text" name="editor"/></label><br/>
+        <label>Total: <input type="number" name="total" required/></label><br/>
+        <label>Available: <input type="number" name="available" required/></label><br/>
+        <label>Date Published: <input type="text" name="datePublished" required/></label><br/>
+        <label>ISBN: <input type="text" name="isbn" required/></label><br/>
+        <label>Edition: <input type="text" name="edition"/></label><br/>
+        <label>Cover: <input type="text" name="cover"/></label><br/>
+        <label>Category: <input type="text" name="category"/></label><br/>
+
+        <button type="submit">Add Book</button>
+    </form>
+</div>
+
+</body>
+</html>
