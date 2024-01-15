@@ -18,7 +18,7 @@
 //    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 //        http
 //                .authorizeHttpRequests((requests) -> requests
-//                        .requestMatchers("/hello").hasRole("USER")
+//                        .requestMatchers("/adminpanel").hasRole("ADMIN")
 //                        .anyRequest().permitAll()
 //                )
 //                .formLogin((form) -> form
@@ -37,7 +37,7 @@
 //                User.withDefaultPasswordEncoder()
 //                        .username("user")
 //                        .password("password")
-//                        .roles("USER")
+//                        .roles("ADMIN")
 //                        .build();
 //
 //        return new InMemoryUserDetailsManager(user);

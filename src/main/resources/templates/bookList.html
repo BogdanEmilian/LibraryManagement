@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Book List</title>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        function refreshTable() {
+            $.get('/getbooks', function (data) {
+                updateTable(data);
+            });
+        }
+
+        function updateTable(data) {
+            var tableBody = $('#bookTableBody');
+            tableBody.empty();
+
+            $.each(data, function (index, book) {
+                var row = $('<tr>');
+                row.append($('<td>').text(book.title));
+                row.append($('<td>').text(book.translator));
+                row.append($('<td>').text(book.collection));
+                row.append($('<td>').text(book.author));
+                row.append($('<td>').text(book.pagesNumber));
+                row.append($('<td>').text(book.height));
+                row.append($('<td>').text(book.width));
+                row.append($('<td>').text(book.editor));
+                row.append($('<td>').text(book.total));
+                row.append($('<td>').text(book.available));
+                row.append($('<td>').text(book.datePublished));
+                row.append($('<td>').text(book.isbn));
+                row.append($('<td>').text(book.edition));
+                row.append($('<td>').text(book.cover));
+                row.append($('<td>').text(book.category));
+                tableBody.append(row);
+            });
+        }
+        /*]]>*/
+    </script>
+</head>
+<body>
+
+<h2>Book List</h2>
+
+<!-- button to trigger the update -->
+<button onclick="refreshTable()">Refresh List</button>
+
+<table border="1">
+    <thead>
+    <tr>
+        <th>Title</th>
+        <th>Translator</th>
+        <th>Collection</th>
+        <th>Author</th>
+        <th>Page Number</th>
+        <th>Height</th>
+        <th>Width</th>
+        <th>Editor</th>
+        <th>Total</th>
+        <th>Available</th>
+        <th>Date Published</th>
+        <th>ISBN</th>
+        <th>Edition</th>
+        <th>Cover</th>
+        <th>Category</th>
+    </tr>
+    </thead>
+    <tbody id="bookTableBody">
+    <!-- loop through the list of books -->
+    <tr th:each="book : ${books}">
+        <td th:text="${book.title}"></td>
+        <td th:text="${book.translator}"></td>
+        <td th:text="${book.collection}"></td>
+        <td th:text="${book.author}"></td>
+        <td th:text="${book.pagesNumber}"></td>
+        <td th:text="${book.height}"></td>
+        <td th:text="${book.width}"></td>
+        <td th:text="${book.editor}"></td>
+        <td th:text="${book.total}"></td>
+        <td th:text="${book.available}"></td>
+        <td th:text="${book.datePublished}"></td>
+        <td th:text="${book.isbn}"></td>
+        <td th:text="${book.edition}"></td>
+        <td th:text="${book.cover}"></td>
+        <td th:text="${book.category}"></td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>
