@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>PDF List</title>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        function refreshTable() {
+            var title = $('#title').val();
+            var author = $('#author').val();
+            var isbn = $('#isbn').val();
+            var collection = $('#collection').val();
+            var datePublished = $('#datePublished').val();
+
+            $.get('/searchpdfs', {title: title, author: author, isbn: isbn, collection: collection, datePublished: datePublished}, function (data) {
+                updateTable(data);
+            });
+        }
+
+        function updateTable(data) {
+            var tableBody = $('#pdfTableBody');
+            tableBody.empty();
+
+            $.each(data, function (index, pdf) {
+                var row = $('<tr>');
+                row.append($('<td>').text(pdf.title));
+                row.append($('<td>').text(pdf.translator));
+                row.append($('<td>').text(pdf.collection));
+                row.append($('<td>').text(pdf.author));
+                row.append($('<td>').text(pdf.pagesNumber));
+                row.append($('<td>').text(pdf.datePublished));
+                row.append($('<td>').text(pdf.isbn));
+                row.append($('<td>').text(pdf.edition));
+                row.append($('<td>').text(pdf.documentLink));
+                tableBody.append(row);
+            });
+        }
+        /*]]>*/
+    </script>
+</head>
+<body>
+
+<h2>PDF List</h2>
+
+<!-- Search Fields -->
+<label for="title">Title:</label>
+<input type="text" id="title" name="title">
+<br>
+
+<label for="author">Author:</label>
+<input type="text" id="author" name="author">
+<br>
+
+<label for="isbn">ISBN:</label>
+<input type="text" id="isbn" name="isbn">
+<br>
+
+<label for="collection">Collection:</label>
+<input type="text" id="collection" name="collection">
+<br>
+
+<label for="datePublished">Date Published:</label>
+<input type="text" id="datePublished" name="datePublished">
+<br>
+
+<!-- button to trigger the update -->
+<button onclick="refreshTable()">Search</button>
+
+<!-- PDF Table -->
+<table border="1">
+    <thead>
+    <tr>
+        <th>Title</th>
+        <th>Translator</th>
+        <th>Collection</th>
+        <th>Author</th>
+        <th>Page Number</th>
+        <th>Date Published</th>
+        <th>ISBN</th>
+        <th>Edition</th>
+        <th>Document Link</th>
+    </tr>
+    </thead>
+    <tbody id="pdfTableBody">
+    <!-- loop through the list of PDFs -->
+    <tr th:each="pdf : ${pdfs}">
+        <td th:text="${pdf.title}"></td>
+        <td th:text="${pdf.translator}"></td>
+        <td th:text="${pdf.collection}"></td>
+        <td th:text="${pdf.author}"></td>
+        <td th:text="${pdf.pagesNumber}"></td>
+        <td th:text="${pdf.datePublished}"></td>
+        <td th:text="${pdf.isbn}"></td>
+        <td th:text="${pdf.edition}"></td>
+        <td th:text="${pdf.documentLink}"></td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

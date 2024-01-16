@@ -20,7 +20,6 @@
                 editor: $('#searchEditor').val(),
                 collection: $('#searchCollection').val(),
                 datePublished: $('#searchDatePublished').val()
-                // Add more search criteria as needed
             };
 
             $.get('/searchbooks', searchCriteria, function (data) {
@@ -82,6 +81,7 @@
     <table border="1">
         <thead>
         <tr>
+            <th>ID</th>
             <th>Title</th>
             <th>Translator</th>
             <th>Collection</th>
@@ -97,12 +97,12 @@
             <th>Edition</th>
             <th>Cover</th>
             <th>Category</th>
-            <th>ID</th> <!-- New column for displaying ID -->
         </tr>
         </thead>
         <tbody id="bookTableBody">
         <!-- loop through the list of books -->
         <tr th:each="book : ${books}">
+            <td th:text="${book.id_book}"></td>
             <td th:text="${book.title}"></td>
             <td th:text="${book.translator}"></td>
             <td th:text="${book.collection}"></td>
@@ -118,7 +118,6 @@
             <td th:text="${book.edition}"></td>
             <td th:text="${book.cover}"></td>
             <td th:text="${book.category}"></td>
-            <td th:text="${book.id_book}"></td>
         </tr>
         </tbody>
     </table>
@@ -127,7 +126,7 @@
 <div>
     <h2>Edit Book</h2>
     <form th:action="@{/bookupdate}" method="post">
-        <!-- Input fields for updating an existing book -->
+        <!-- updating an existing book -->
         <label>ID: <input type="number" name="id_book" required/></label><br/>
         <label>Title: <input type="text" name="title" required/></label><br/>
         <label>Translator: <input type="text" name="translator" required/></label><br/>

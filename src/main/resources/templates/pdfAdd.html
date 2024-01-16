@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Library Management</title>
+</head>
+<body>
+
+<div>
+    <h2>Add New PDF</h2>
+    <form th:action="@{/pdfadd}" method="post">
+        <label>Title: <input type="text" name="title" required/></label><br/>
+        <label>Translator: <input type="text" name="translator" required/></label><br/>
+        <label>Collection: <input type="text" name="collection"/></label><br/>
+        <label>Author: <input type="text" name="author" required/></label><br/>
+        <label>Page Number: <input type="number" name="pagesNumber" required/></label><br/>
+        <label>Date Published: <input type="number" name="datePublished" required/></label><br/>
+        <label>ISBN: <input type="text" name="isbn" required/></label><br/>
+        <label>Edition: <input type="text" name="edition"/></label><br/>
+        <label>Document Link: <input type="text" name="documentLink" required/></label><br/>
+
+        <button type="submit">Add PDF</button>
+    </form>
+</div>
+
+</body>
+</html>
