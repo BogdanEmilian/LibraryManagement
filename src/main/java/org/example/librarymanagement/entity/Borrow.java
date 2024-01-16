@@ -1,51 +1,57 @@
 package org.example.librarymanagement.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import org.example.librarymanagement.repo.BookRepository;
+import org.example.librarymanagement.repo.UserRepository;
+
+import java.util.Date;
 
 @Entity
 public class Borrow {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id_borrow;
+    private Integer idBorrow;
 
-    private Integer user_id;
-    private Integer book_id;
-    private String dateBorrowed;
+    private Integer userId;
+    private Integer bookId;
+
+    private Date dateBorrowed;
     private Boolean returned;
 
-    public Integer getId_borrow() {
-        return id_borrow;
+
+    private static UserRepository userRepository;
+    private static BookRepository bookRepository;
+
+    public Integer getIdBorrow() {
+        return idBorrow;
     }
 
-    public void setId_borrow(Integer id_borrow) {
-        this.id_borrow = id_borrow;
+    public void setIdBorrow(Integer idBorrow) {
+        this.idBorrow = idBorrow;
     }
 
-    public Integer getUser_id() {
-        return user_id;
+    public Integer getUserId() {
+        return userId;
     }
 
-    public void setUser_id(Integer user_id) {
-        this.user_id = user_id;
+    public void setUserId(Integer userId) {
+        this.userId = userId;
     }
 
-    public Integer getBook_id() {
-        return book_id;
+    public Integer getBookId() {
+        return bookId;
     }
 
-    public void setBook_id(Integer book_id) {
-        this.book_id = book_id;
+    public void setBookId(Integer bookId) {
+        this.bookId = bookId;
     }
 
-    public String getDateBorrowed() {
+    public Date getDateBorrowed() {
         return dateBorrowed;
     }
 
-    public void setDateBorrowed(String dateBorrowed) {
+    public void setDateBorrowed(Date dateBorrowed) {
         this.dateBorrowed = dateBorrowed;
     }
 
@@ -56,4 +62,17 @@ public class Borrow {
     public void setReturned(Boolean returned) {
         this.returned = returned;
     }
+
+    @Transient
+    public User getUser(Integer userId) {
+        // Implement logic to retrieve the User entity based on userId
+        return userRepository.findById(userId).orElse(null);
+    }
+
+    @Transient
+    public Book getBook(Integer bookId) {
+        // Implement logic to retrieve the Book entity based on bookId
+        return bookRepository.findById(bookId).orElse(null);
+    }
 }
+

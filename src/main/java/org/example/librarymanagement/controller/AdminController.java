@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 @Controller
-@RequestMapping(path = "/adminpanel")
 public class AdminController {
 
     @Autowired
@@ -37,7 +36,6 @@ public class AdminController {
         } catch (Exception e){
             e.printStackTrace();
         }
-
 
         return "Saved";
     }
