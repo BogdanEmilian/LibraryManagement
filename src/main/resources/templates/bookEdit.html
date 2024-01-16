@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Library Management</title>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        function refreshTable() {
+            $.get('/getbooks', function (data) {
+                updateTable(data);
+            });
+        }
+
+        function searchBooks() {
+            var searchCriteria = {
+                title: $('#searchTitle').val(),
+                author: $('#searchAuthor').val(),
+                isbn: $('#searchISBN').val()
+                // Add more search criteria as needed
+            };
+
+            $.get('/searchbooks', searchCriteria, function (data) {
+                updateTable(data);
+            });
+        }
+
+        function updateTable(data) {
+            var tableBody = $('#bookTableBody');
+            tableBody.empty();
+
+            $.each(data, function (index, book) {
+                var row = $('<tr>');
+                row.append($('<td>').text(book.title));
+                row.append($('<td>').text(book.translator));
+                row.append($('<td>').text(book.collection));
+                row.append($('<td>').text(book.author));
+                row.append($('<td>').text(book.pagesNumber));
+                row.append($('<td>').text(book.height));
+                row.append($('<td>').text(book.width));
+                row.append($('<td>').text(book.editor));
+                row.append($('<td>').text(book.total));
+                row.append($('<td>').text(book.available));
+                row.append($('<td>').text(book.datePublished));
+                row.append($('<td>').text(book.isbn));
+                row.append($('<td>').text(book.edition));
+                row.append($('<td>').text(book.cover));
+                row.append($('<td>').text(book.category));
+                row.append($('<td>').text(book.id_book));  // Display ID in the last column
+                tableBody.append(row);
+            });
+        }
+        /*]]>*/
+    </script>
+</head>
+<body>
+
+<div>
+    <h2>Book List</h2>
+
+    <!-- Search form -->
+    <form onsubmit="event.preventDefault(); searchBooks();">
+        <label>Title: <input type="text" id="searchTitle"/></label>
+        <label>Author: <input type="text" id="searchAuthor"/></label>
+        <label>ISBN: <input type="text" id="searchISBN"/></label>
+        <!-- Add more search fields as needed -->
+
+        <button type="submit">Search</button>
+        <button type="button" onclick="refreshTable()">Reset</button>
+    </form>
+
+    <!-- button to trigger the update -->
+    <button onclick="refreshTable()">Refresh List</button>
+
+    <table border="1">
+        <thead>
+        <tr>
+            <th>Title</th>
+            <th>Translator</th>
+            <th>Collection</th>
+            <th>Author</th>
+            <th>Page Number</th>
+            <th>Height</th>
+            <th>Width</th>
+            <th>Editor</th>
+            <th>Total</th>
+            <th>Available</th>
+            <th>Date Published</th>
+            <th>ISBN</th>
+            <th>Edition</th>
+            <th>Cover</th>
+            <th>Category</th>
+            <th>ID</th> <!-- New column for displaying ID -->
+        </tr>
+        </thead>
+        <tbody id="bookTableBody">
+        <!-- loop through the list of books -->
+        <tr th:each="book : ${books}">
+            <td th:text="${book.title}"></td>
+            <td th:text="${book.translator}"></td>
+            <td th:text="${book.collection}"></td>
+            <td th:text="${book.author}"></td>
+            <td th:text="${book.pagesNumber}"></td>
+            <td th:text="${book.height}"></td>
+            <td th:text="${book.width}"></td>
+            <td th:text="${book.editor}"></td>
+            <td th:text="${book.total}"></td>
+            <td th:text="${book.available}"></td>
+            <td th:text="${book.datePublished}"></td>
+            <td th:text="${book.isbn}"></td>
+            <td th:text="${book.edition}"></td>
+            <td th:text="${book.cover}"></td>
+            <td th:text="${book.category}"></td>
+            <td th:text="${book.id_book}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div>
+    <h2>Edit Book</h2>
+    <form th:action="@{/bookupdate}" method="post">
+        <!-- Input fields for updating an existing book -->
+        <label>ID: <input type="number" name="id_book" required/></label><br/>
+        <label>Title: <input type="text" name="title" required/></label><br/>
+        <label>Translator: <input type="text" name="translator" required/></label><br/>
+        <label>Collection: <input type="text" name="collection"/></label><br/>
+        <label>Author: <input type="text" name="author" required/></label><br/>
+        <label>Page Number: <input type="number" name="pagesNumber" required/></label><br/>
+        <label>Height: <input type="number" name="height" required/></label><br/>
+        <label>Width: <input type="number" name="width" required/></label><br/>
+        <label>Editor: <input type="text" name="editor"/></label><br/>
+        <label>Total: <input type="number" name="total" required/></label><br/>
+        <label>Available: <input type="number" name="available" required/></label><br/>
+        <label>Date Published: <input type="text" name="datePublished" required/></label><br/>
+        <label>ISBN: <input type="text" name="isbn" required/></label><br/>
+        <label>Edition: <input type="text" name="edition"/></label><br/>
+        <label>Cover: <input type="text" name="cover"/></label><br/>
+        <label>Category: <input type="text" name="category"/></label><br/>
+
+        <button type="submit">Update Book</button>
+    </form>
+</div>
+
+</body>
+</html>

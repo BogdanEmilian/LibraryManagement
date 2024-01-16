@@ -13,6 +13,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @Controller
 public class BookController {
@@ -74,4 +76,79 @@ public class BookController {
         }
     }
 
+    @CrossOrigin(origins = "http://localhost:8080")
+    @GetMapping("/searchbooks")
+    public ResponseEntity<List<Book>> searchBooks(
+            @RequestParam(required = false) String title,
+            @RequestParam(required = false) String author,
+            @RequestParam(required = false) String isbn) {
+
+        Iterable<Book> allBooks = bookRepository.findAll();
+
+        List<Book> searchResult = StreamSupport.stream(allBooks.spliterator(), false)
+                .filter(book -> title == null || book.getTitle().contains(title))
+                .filter(book -> author == null || book.getAuthor().contains(author))
+                .filter(book -> isbn == null || book.getIsbn().equals(isbn))
+                .collect(Collectors.toList());
+
+        return ResponseEntity.ok(searchResult);
+    }
+
+
+
+    // Add endpoint for updating a book
+    @CrossOrigin(origins = "http://localhost:8080")
+    @PostMapping("/bookupdate")
+    public ResponseEntity<ResponseMessage> updateBook(@RequestParam Integer id_book,
+                                                      @RequestParam String title,
+                                                      @RequestParam String translator,
+                                                      @RequestParam String collection,
+                                                      @RequestParam String author,
+                                                      @RequestParam Integer pagesNumber,
+                                                      @RequestParam Integer height,
+                                                      @RequestParam Integer width,
+                                                      @RequestParam String editor,
+                                                      @RequestParam Integer total,
+                                                      @RequestParam Integer available,
+                                                      @RequestParam String datePublished,
+                                                      @RequestParam String isbn,
+                                                      @RequestParam String edition,
+                                                      @RequestParam String cover,
+                                                      @RequestParam String category) {
+        // Fetch the existing book from the repository
+        Book existingBook = bookRepository.findById(id_book).orElse(null);
+
+        if (existingBook != null) {
+            try {
+                // Update the book fields
+                existingBook.setTitle(title);
+                existingBook.setTranslator(translator);
+                existingBook.setCollection(collection);
+                existingBook.setAuthor(author);
+                existingBook.setPagesNumber(pagesNumber);
+                existingBook.setHeight(height);
+                existingBook.setWidth(width);
+                existingBook.setEditor(editor);
+                existingBook.setTotal(total);
+                existingBook.setAvailable(available);
+                existingBook.setDatePublished(datePublished);
+                existingBook.setIsbn(isbn);
+                existingBook.setEdition(edition);
+                existingBook.setCover(cover);
+                existingBook.setCategory(category);
+
+                // Save the updated book
+                bookRepository.save(existingBook);
+
+                return ResponseEntity.status(HttpStatus.OK).body(new ResponseMessage("Book updated successfully"));
+            } catch (Exception e) {
+                e.printStackTrace();
+                return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(new ResponseMessage("Failed to update book"));
+            }
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseMessage("Book not found"));
+        }
+    }
+
 }
+
