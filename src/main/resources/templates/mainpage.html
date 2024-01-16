@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Centralized View</title>
+</head>
+
+<body>
+
+<h1>Welcome to the Centralized View</h1>
+
+<form th:action="@{/addBook}" method="get">
+    <button type="submit">Add Book</button>
+</form>
+
+<form th:action="@{/addPdf}" method="get">
+    <button type="submit">Add PDF</button>
+</form>
+
+<form th:action="@{/books}" method="get">
+    <button type="submit">Book List</button>
+</form>
+
+<form th:action="@{/hello}" method="get">
+    <button type="submit">Hello</button>
+</form>
+
+<form th:action="@{/admin}" method="get">
+    <button type="submit">Admin</button>
+</form>
+
+<form th:action="@{/login}" method="get">
+    <button type="submit">Login</button>
+</form>
+
+<form th:action="@{/signup}" method="get">
+    <button type="submit">Signup</button>
+</form>
+
+<form th:action="@{/adminpanel}" method="get">
+    <button type="submit">Admin Panel</button>
+</form>
+
+<form th:action="@{/bookEdit}" method="get">
+    <button type="submit">Edit Book</button>
+</form>
+
+<form th:action="@{/pdfEdit}" method="get">
+    <button type="submit">Edit PDF</button>
+</form>
+
+<form th:action="@{/pdfList}" method="get">
+    <button type="submit">PDF List</button>
+</form>
+
+<form th:action="@{/userValidation}" method="get">
+    <button type="submit">User Validation</button>
+</form>
+
+<form th:action="@{/validateUser}" method="get">
+    <button type="submit">Validate User</button>
+</form>
+
+<form th:action="@{/borrowings}" method="get">
+    <button type="submit">Borrowings List</button>
+</form>
+
+<form th:action="@{/mainpage}" method="get">
+    <button type="submit">Main Page</button>
+</form>
+
+</body>
+
+</html>
