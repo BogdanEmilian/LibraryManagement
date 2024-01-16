@@ -12,7 +12,7 @@ public class Pdf {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id_pdf;
 
-    private Integer pages_number;
+    private Integer pagesNumber;
     private String title;
     private String translator;
     private String collection;
@@ -31,12 +31,12 @@ public class Pdf {
         this.id_pdf = id_pdf;
     }
 
-    public Integer getPages_number() {
-        return pages_number;
+    public Integer getPagesNumber() {
+        return pagesNumber;
     }
 
-    public void setPages_number(Integer pages_number) {
-        this.pages_number = pages_number;
+    public void setPagesNumber(Integer pagesNumber) {
+        this.pagesNumber = pagesNumber;
     }
 
     public String getTitle() {

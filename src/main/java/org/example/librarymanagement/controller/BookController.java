@@ -44,7 +44,21 @@ public class BookController {
 
     @CrossOrigin(origins = "http://localhost:8080")
     @PostMapping("/bookadd")
-    public @ResponseBody ResponseEntity<ResponseMessage> addNewBook(@RequestParam String title, @RequestParam String translator, @RequestParam String collection, @RequestParam String author, @RequestParam Integer pagesNumber, @RequestParam Integer height, @RequestParam Integer width, @RequestParam String editor, @RequestParam Integer total, @RequestParam Integer available, @RequestParam String datePublished, @RequestParam String isbn, @RequestParam String edition, @RequestParam String cover, @RequestParam String category){
+    public @ResponseBody ResponseEntity<ResponseMessage> addNewBook(    @RequestParam String title,
+                                                                        @RequestParam String translator,
+                                                                        @RequestParam String collection,
+                                                                        @RequestParam String author,
+                                                                        @RequestParam Integer pagesNumber,
+                                                                        @RequestParam Integer height,
+                                                                        @RequestParam Integer width,
+                                                                        @RequestParam String editor,
+                                                                        @RequestParam Integer total,
+                                                                        @RequestParam Integer available,
+                                                                        @RequestParam String datePublished,
+                                                                        @RequestParam String isbn,
+                                                                        @RequestParam String edition,
+                                                                        @RequestParam String cover,
+                                                                        @RequestParam String category){
         String message = "";
         Book book = new Book();
 
@@ -78,14 +92,13 @@ public class BookController {
 
     @CrossOrigin(origins = "http://localhost:8080")
     @GetMapping("/searchbooks")
-    public ResponseEntity<List<Book>> searchBooks(
-            @RequestParam(required = false) String title,
-            @RequestParam(required = false) String author,
-            @RequestParam(required = false) String isbn,
-            @RequestParam(required = false) String category,
-            @RequestParam(required = false) String editor,
-            @RequestParam(required = false) String collection,
-            @RequestParam(required = false) String datePublished) {
+    public ResponseEntity<List<Book>> searchBooks(  @RequestParam(required = false) String title,
+                                                    @RequestParam(required = false) String author,
+                                                    @RequestParam(required = false) String isbn,
+                                                    @RequestParam(required = false) String category,
+                                                    @RequestParam(required = false) String editor,
+                                                    @RequestParam(required = false) String collection,
+                                                    @RequestParam(required = false) String datePublished) {
 
         Iterable<Book> allBooks = bookRepository.findAll();
 
@@ -112,22 +125,22 @@ public class BookController {
     // Add endpoint for updating a book
     @CrossOrigin(origins = "http://localhost:8080")
     @PostMapping("/bookupdate")
-    public ResponseEntity<ResponseMessage> updateBook(@RequestParam Integer id_book,
-                                                      @RequestParam String title,
-                                                      @RequestParam String translator,
-                                                      @RequestParam String collection,
-                                                      @RequestParam String author,
-                                                      @RequestParam Integer pagesNumber,
-                                                      @RequestParam Integer height,
-                                                      @RequestParam Integer width,
-                                                      @RequestParam String editor,
-                                                      @RequestParam Integer total,
-                                                      @RequestParam Integer available,
-                                                      @RequestParam String datePublished,
-                                                      @RequestParam String isbn,
-                                                      @RequestParam String edition,
-                                                      @RequestParam String cover,
-                                                      @RequestParam String category) {
+    public ResponseEntity<ResponseMessage> updateBook(  @RequestParam Integer id_book,
+                                                          @RequestParam String title,
+                                                          @RequestParam String translator,
+                                                          @RequestParam String collection,
+                                                          @RequestParam String author,
+                                                          @RequestParam Integer pagesNumber,
+                                                          @RequestParam Integer height,
+                                                          @RequestParam Integer width,
+                                                          @RequestParam String editor,
+                                                          @RequestParam Integer total,
+                                                          @RequestParam Integer available,
+                                                          @RequestParam String datePublished,
+                                                          @RequestParam String isbn,
+                                                          @RequestParam String edition,
+                                                          @RequestParam String cover,
+                                                          @RequestParam String category) {
         // Fetch the existing book from the repository
         Book existingBook = bookRepository.findById(id_book).orElse(null);
 
