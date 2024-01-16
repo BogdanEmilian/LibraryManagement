@@ -81,18 +81,31 @@ public class BookController {
     public ResponseEntity<List<Book>> searchBooks(
             @RequestParam(required = false) String title,
             @RequestParam(required = false) String author,
-            @RequestParam(required = false) String isbn) {
+            @RequestParam(required = false) String isbn,
+            @RequestParam(required = false) String category,
+            @RequestParam(required = false) String editor,
+            @RequestParam(required = false) String collection,
+            @RequestParam(required = false) String datePublished) {
 
         Iterable<Book> allBooks = bookRepository.findAll();
 
         List<Book> searchResult = StreamSupport.stream(allBooks.spliterator(), false)
-                .filter(book -> title == null || book.getTitle().contains(title))
-                .filter(book -> author == null || book.getAuthor().contains(author))
-                .filter(book -> isbn == null || book.getIsbn().equals(isbn))
+                .filter(book -> isNullOrEmpty(title) || book.getTitle().contains(title))
+                .filter(book -> isNullOrEmpty(author) || book.getAuthor().contains(author))
+                .filter(book -> isNullOrEmpty(isbn) || book.getIsbn().equals(isbn))
+                .filter(book -> isNullOrEmpty(category) || book.getCategory().contains(category))
+                .filter(book -> isNullOrEmpty(editor) || book.getEditor().contains(editor))
+                .filter(book -> isNullOrEmpty(collection) || book.getCollection().contains(collection))
+                .filter(book -> isNullOrEmpty(datePublished) || book.getDatePublished().contains(datePublished))
                 .collect(Collectors.toList());
 
         return ResponseEntity.ok(searchResult);
     }
+
+    private boolean isNullOrEmpty(String value) {
+        return value == null || value.trim().isEmpty();
+    }
+
 
 
 
