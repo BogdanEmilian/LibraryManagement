@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Library Management</title>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        function refreshTable() {
+            $.get('/getborrows', function (data) {
+                updateTable(data);
+            });
+        }
+
+        function borrowBook() {
+            var borrowData = {
+                userId: $('#borrowUserId').val(),
+                bookId: $('#borrowBookId').val()
+            };
+
+            $.post('/borrowbook', borrowData, function (data) {
+                alert(data.message);
+                refreshTable();
+            });
+        }
+
+        function returnBook() {
+            var borrowId = $('#returnBorrowId').val();
+
+            $.post('/returnbook', { borrowId: borrowId }, function (data) {
+                alert(data.message);
+                refreshTable();
+            });
+        }
+
+        function updateTable(data) {
+            var tableBody = $('#borrowTableBody');
+            tableBody.empty();
+
+            $.each(data, function (index, borrow) {
+                var row = $('<tr>');
+                row.append($('<td>').text(borrow.idBorrow));
+                row.append($('<td>').text(borrow.userId));
+                row.append($('<td>').text(borrow.bookId));
+                row.append($('<td>').text(borrow.dateBorrowed));
+                row.append($('<td>').text(borrow.returned));
+                tableBody.append(row);
+            });
+        }
+        /*]]>*/
+    </script>
+</head>
+<body>
+
+<div>
+    <h2>Borrow List</h2>
+
+    <!-- Borrow form -->
+    <form th:action="@{/borrowbook}" method="post">
+        <label>User ID: <input type="number" id="userId" name="userId" required/></label>
+        <label>Book ID: <input type="number" id="bookId" name="bookId" required/></label>
+
+        <button type="submit">Borrow Book</button>
+    </form>
+
+    <!-- Return form -->
+    <form th:action="@{/returnbook}" method="post">
+        <label>Borrow ID: <input type="number" id="returnBorrowId" name="borrowId" required/></label>
+
+        <button type="submit">Return Book</button>
+    </form>
+
+    <!-- button to trigger the update -->
+    <button onclick="refreshTable()">Refresh List</button>
+
+    <table border="1">
+        <thead>
+        <tr>
+            <th>Borrow ID</th>
+            <th>User</th>
+            <th>Book</th>
+            <th>Date Borrowed</th>
+            <th>Returned</th>
+        </tr>
+        </thead>
+        <tbody id="borrowTableBody">
+        <!-- loop through the list of Borrows -->
+        <tr th:each="borrow : ${borrows}">
+            <td th:text="${borrow.idBorrow}"></td>
+            <td th:text="${borrow.userId}"></td>
+            <td th:text="${borrow.bookId}"></td>
+            <td th:text="${borrow.dateBorrowed}"></td>
+            <td th:text="${borrow.returned}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>
