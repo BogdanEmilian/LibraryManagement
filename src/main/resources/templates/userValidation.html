@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Library Management</title>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        function refreshTable() {
+            $.get('/unvalidated', function (data) {
+                updateTable(data);
+            });
+        }
+
+        function validateUser() {
+            var userId = $('#userId').val();
+            $.post('/validateUser', {id: userId}, function (data) {
+                alert(data);
+                refreshTable();
+            });
+        }
+
+        function updateTable(data) {
+            var tableBody = $('#userTableBody');
+            tableBody.empty();
+
+            $.each(data, function (index, user) {
+                var row = $('<tr>');
+                row.append($('<td>').text(user.idUser));
+                row.append($('<td>').text(user.username));
+                row.append($('<td>').text(user.passwordHash));
+                row.append($('<td>').text(user.role));
+                row.append($('<td>').text(user.accountValidated ? 'Yes' : 'No'));
+                row.append($('<td>').text(user.phoneNumber));
+                // Displaying the user's photo
+                row.append($('<td>').append($('<img>').attr('src', 'data:image/png;base64,' + user.idCard).attr('alt', 'User Photo')));
+                tableBody.append(row);
+            });
+        }
+        /*]]>*/
+    </script>
+</head>
+<body>
+
+<div>
+    <h2>Unvalidated Users</h2>
+
+    <!-- Table of unvalidated users -->
+    <table border="1">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Username</th>
+            <th>Password Hash</th>
+            <th>Role</th>
+            <th>Account Validated</th>
+            <th>Phone Number</th>
+            <th>User Photo</th>
+        </tr>
+        </thead>
+        <tbody id="userTableBody">
+        <!-- Loop through the list of unvalidated users -->
+        <tr th:each="user : ${unvalidatedUsers}">
+            <td th:text="${user.idUser}"></td>
+            <td th:text="${user.username}"></td>
+            <td th:text="${user.passwordHash}"></td>
+            <td th:text="${user.role}"></td>
+            <td th:text="${user.accountValidated ? 'Yes' : 'No'}"></td>
+            <td th:text="${user.phoneNumber}"></td>
+            <!-- Displaying the user's photo -->
+            <td><img th:src="@{'data:image/png;base64,' + ${#strings.bytesToBase64(user.idCard)}}" alt="User Photo"/></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!-- Form for validating a user -->
+    <form th:action="@{/validateUser}" method="post">
+        <label for="userId">Enter User ID to Validate:</label>
+        <input type="number" id="userId" name="userId" required>
+        <button type="submit">Validate User</button>
+    </form>
+
+    <!-- Button to refresh the list -->
+    <button onclick="refreshTable()">Refresh List</button>
+</div>
+
+</body>
+</html>
