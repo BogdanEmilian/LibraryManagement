@@ -2,14 +2,12 @@ package org.example.librarymanagement.entity;
 
 import jakarta.persistence.*;
 
-import java.sql.Blob;
-
 @Entity
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id_user;
+    private Integer idUser;
 
     private String username;
     private String passwordHash;
@@ -21,12 +19,12 @@ public class User {
     @Column(name="id_card", columnDefinition = "MEDIUMBLOB")
     private byte[] idCard;
 
-    public Integer getId_user() {
-        return id_user;
+    public Integer getIdUser() {
+        return idUser;
     }
 
-    public void setId_user(Integer id_user) {
-        this.id_user = id_user;
+    public void setIdUser(Integer idUser) {
+        this.idUser = idUser;
     }
 
     public String getUsername() {
