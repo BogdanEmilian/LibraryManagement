@@ -15,7 +15,11 @@
             var searchCriteria = {
                 title: $('#searchTitle').val(),
                 author: $('#searchAuthor').val(),
-                isbn: $('#searchISBN').val()
+                isbn: $('#searchISBN').val(),
+                category: $('#searchCategory').val(),
+                editor: $('#searchEditor').val(),
+                collection: $('#searchCollection').val(),
+                datePublished: $('#searchDatePublished').val()
                 // Add more search criteria as needed
             };
 
@@ -62,6 +66,10 @@
         <label>Title: <input type="text" id="searchTitle"/></label>
         <label>Author: <input type="text" id="searchAuthor"/></label>
         <label>ISBN: <input type="text" id="searchISBN"/></label>
+        <label>Category: <input type="text" id="searchCategory"/></label>
+        <label>Editor: <input type="text" id="searchEditor"/></label>
+        <label>Collection: <input type="text" id="searchCollection"/></label>
+        <label>Date Published: <input type="text" id="searchDatePublished"/></label>
         <!-- Add more search fields as needed -->
 
         <button type="submit">Search</button>
